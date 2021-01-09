@@ -8,7 +8,8 @@ COPY configs.tar.gz /root/configs.tar.gz
 COPY start.sh /root/start.sh
 
 RUN apt update && \
-    apt install -y git curl wget libnewt-dev libssl-dev libncurses5-dev libsqlite3-dev build-essential libjansson-dev libxml2-dev uuid-dev libedit-dev mpg123 ffmpeg subversion uuid-runtime \
+    apt install -y git curl wget libnewt-dev libssl-dev libncurses5-dev libsqlite3-dev build-essential libjansson-dev libxml2-dev uuid-dev libedit-dev libasound2-dev \
+    alsa-tools alsa-utils mpg123 ffmpeg subversion uuid-runtime \
     && export GNUPGHOME="$(mktemp -d)" \
   && wget https://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-${ASTERISK_VERSION}.tar.gz \
   && tar xzf asterisk-${ASTERISK_VERSION}.tar.gz \
@@ -25,6 +26,8 @@ RUN apt update && \
     --disable res_config_mysql \
     --disable app_mysql \
     --disable cdr_mysql \
+    --enable chan_alsa \
+    --enable chan_console \
 # Apps
     --enable-category MENUSELECT_APPS \
     --disable app_skel \
