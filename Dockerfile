@@ -14,7 +14,7 @@ RUN apt update && \
   && wget https://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-${ASTERISK_VERSION}.tar.gz \
   && tar xzf asterisk-${ASTERISK_VERSION}.tar.gz \
   && cd asterisk-${ASTERISK_VERSION} \
-  && useradd --system asterisk \
+  && useradd --system -G audio asterisk \
   && ./configure --with-pjproject-bundled --with-jansson-bundled \
   && make menuselect.makeopts \
   && ./menuselect/menuselect \
